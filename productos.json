@@ -1,0 +1,167 @@
+[
+  {
+    "codigo": "VIA-009",
+    "id_producto": 1,
+    "producto": "Set x13 Higiene Infantil",
+    "categoria": "ORGANIZADORES DE VIAJE",
+    "proveedor": "ITEMS",
+    "costo": 14990.0,
+    "precio_unitario": 19487.0,
+    "descripcion_corta": "Set x13 Higiene Infantil\nColor rosa y Celeste",
+    "stock": 0
+  },
+  {
+    "codigo": "VIA-003",
+    "id_producto": 2,
+    "producto": "Neceser Organizador Porta Cosméticos",
+    "categoria": "ORGANIZADORES DE VIAJE",
+    "proveedor": "CRACO",
+    "costo": 7773.5,
+    "precio_unitario": 10106.0,
+    "descripcion_corta": "Neceser Organizador Plegable Porta Cosméticos\nMedidas: 11 x 22 x 11 cerrado APROX\nColores: Rosa, Blanco y Negro\nMaterial: Eco-cuero",
+    "stock": 4
+  },
+  {
+    "codigo": "VIA-002",
+    "id_producto": 3,
+    "producto": "Neceser Organizador Moderno Transparente",
+    "categoria": "ORGANIZADORES DE VIAJE",
+    "proveedor": "CRACO",
+    "costo": 6218.8,
+    "precio_unitario": 8084.0,
+    "descripcion_corta": "Neceser Private Things Transparente\nMedidas: 21x15x8cm APROX\nMaterial: PVC y Poliéster",
+    "stock": 0
+  },
+  {
+    "codigo": "VIA-001",
+    "id_producto": 4,
+    "producto": "Neceser Organizador Cartera Porta Cosmetico",
+    "categoria": "ORGANIZADORES DE VIAJE",
+    "proveedor": "CRACO",
+    "costo": 5303.2,
+    "precio_unitario": 6894.0,
+    "descripcion_corta": "Organizador Cartera Neceser Porta Cosmético\nColores: Negro, rosa y celeste\nMedidas: 28x16cm Aprox\nMaterial: Nylon",
+    "stock": 2
+  },
+  {
+    "codigo": "VIA-004",
+    "id_producto": 5,
+    "producto": "Organizador Neceser Porta Cosmético Escamas",
+    "categoria": "ORGANIZADORES DE VIAJE",
+    "proveedor": "CRACO",
+    "costo": 3817.8,
+    "precio_unitario": 4963.0,
+    "descripcion_corta": "Organizador Neceser Porta Cosmético Escamas\nMaterial: Tela\nColor: Rosa, Turquesa, Dorado y Plateado",
+    "stock": 0
+  },
+  {
+    "codigo": "VIA-006",
+    "id_producto": 6,
+    "producto": "Pack x3 botellas travel",
+    "categoria": "ORGANIZADORES DE VIAJE",
+    "proveedor": "ITEMS",
+    "costo": 2499.0,
+    "precio_unitario": 3249.0,
+    "descripcion_corta": "Botellas dispensadoras para viajes.\nContiene: 3 unidades. Material: plástico.\nMedidas de cada botella: 11x5cm.\nColores surtidos.",
+    "stock": 4
+  },
+  {
+    "codigo": null,
+    "id_producto": null,
+    "producto": "Caja Organizadora Multiuso Tapa Madera Cuadrado",
+    "categoria": "ORGANIZADORES DE HOGAR",
+    "proveedor": null,
+    "costo": 7618.1,
+    "precio_unitario": 9903.53,
+    "descripcion_corta": null,
+    "stock": 0
+  },
+  {
+    "codigo": "VIA-008",
+    "id_producto": 7,
+    "producto": "Porta Cepillo De Dientes Viaje",
+    "categoria": "ORGANIZADORES DE VIAJE",
+    "proveedor": "CRACO",
+    "costo": 2058.0,
+    "precio_unitario": 2675.0,
+    "descripcion_corta": "Porta Cepillo De Dientes\nMaterial: Plástico\nColor: Gris, Verde, Rosa y Blanco",
+    "stock": 1
+  },
+  {
+    "codigo": "VIA-007",
+    "id_producto": 8,
+    "producto": "Porta cepillo de dientes",
+    "categoria": "ORGANIZADORES DE VIAJE",
+    "proveedor": "ITEMS",
+    "costo": 1490.0,
+    "precio_unitario": 1937.0,
+    "descripcion_corta": "Box porta cepillo de dientes, de platico.\nIdeal para llevar con vos a todos lados. -\nSOLO MARRON",
+    "stock": 0
+  },
+  {
+    "codigo": "ORG-004",
+    "id_producto": 9,
+    "producto": "Porta Algodón de Acrílico y Madera",
+    "categoria": "ORGANIZADORES DE BAÑO",
+    "proveedor": "CRACO",
+    "costo": 7882.0,
+    "precio_unitario": 10247.0,
+    "descripcion_corta": "Porta Algodón de Acrílico y Madera\nMaterial: Acrílico y madera\nColor: Transparente\nMedidas: 7x18cm",
+    "stock": 0
+  },
+  {
+    "codigo": "ORG-001",
+    "id_producto": 10,
+    "producto": "Dispenser de jabon liquido",
+    "categoria": "ORGANIZADORES DE BAÑO",
+    "proveedor": "ITEMS",
+    "costo": 6000.0,
+    "precio_unitario": 7800.0,
+    "descripcion_corta": "Dispenser de jabón liquido para pared, súper práctico y resistente.\nMedidas: 7x7x19 cm",
+    "stock": 0
+  },
+  {
+    "codigo": "ORG-002",
+    "id_producto": 11,
+    "producto": "Organizador para Baño Pasta Cepillos con Vaso",
+    "categoria": "ORGANIZADORES DE BAÑO",
+    "proveedor": "CRACO",
+    "costo": 5840.1,
+    "precio_unitario": 7592.0,
+    "descripcion_corta": "Organizador para Baño Pasta Cepillos con Vaso\nMedidas: 15cm APROX\nColor: Blanco\nMaterial: Plástico",
+    "stock": 0
+  },
+  {
+    "codigo": "ORG-003",
+    "id_producto": 12,
+    "producto": "Set Dispenser Jabon Liquido con Porta Cepillo",
+    "categoria": "ORGANIZADORES DE BAÑO",
+    "proveedor": "CRACO",
+    "costo": 5399.8,
+    "precio_unitario": 7020.0,
+    "descripcion_corta": "Set Dispenser Jabon Liquido con Porta Cepillo\nMaterial: Plástico\nColor: Natural y Gris\nMedidas: Porta Cepillo: 12,5x8 Cm | Dispenser 16x8 Cm",
+    "stock": 0
+  },
+  {
+    "codigo": "ORG-005",
+    "id_producto": 13,
+    "producto": "Porta Algodón e Hisopos de Acrílico y Madera Doble",
+    "categoria": "ORGANIZADORES DE BAÑO",
+    "proveedor": "CRACO",
+    "costo": 5301.8,
+    "precio_unitario": 6892.0,
+    "descripcion_corta": "Porta Hisopos y Algodón de Acrílico Doble\nMedidas: 19,5x6,8cm APROX\nColor: Transparente con tapa de Madera\nMaterial: Acrílico",
+    "stock": 1
+  },
+  {
+    "codigo": "ORG-006",
+    "id_producto": 14,
+    "producto": "Vaso Porta Cepillo Dientes Redondo Bambú",
+    "categoria": "ORGANIZADORES DE BAÑO",
+    "proveedor": "CRACO",
+    "costo": 4502.4,
+    "precio_unitario": 5853.0,
+    "descripcion_corta": "Vaso Porta Cepillo Dientes Redondo Bambú\nMaterial: Plástico y madera\nMedidas: 11cm APROX\nColor: Blanco con madera",
+    "stock": 0
+  }
+]

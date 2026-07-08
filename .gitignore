@@ -1,0 +1,5 @@
+# Node / package managers
+node_modules/
+
+# Variables de Entorno
+.env
