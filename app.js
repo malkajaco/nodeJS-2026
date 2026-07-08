@@ -6,6 +6,7 @@ import express from "express";
 import productsRouter from "./src/routes/products.router.js";
 import usersRouter from "./src/routes/users.router.js";
 import categoriesRouter from "./src/routes/categories.router.js";
+import authRouter from "./src/routes/auth.router.js";
 
 const app = express();
 app.use(cors());
