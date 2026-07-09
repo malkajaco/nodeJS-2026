@@ -2,7 +2,7 @@
 Autor: Malka Jacobo (Amaranta Kohn)
 LinkedIN: https://www.linkedin.com/in/malka-jacobo/
 Repo: https://github.com/malkajaco/nodeJS-2026
-Deploy: https://vercel.com/malka-jaco/node-js-2026-fdu2
+Deploy: https://node-js-2026-fdu2.vercel.app
 
 
 Sistema de Gestion de Productos con Express y Firebase

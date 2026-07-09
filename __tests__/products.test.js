@@ -77,6 +77,9 @@ describe("POST /api/products - Validaciones de campos", () => {
 });
 
 describe("Flujo completo: crear, consultar, modificar stock, eliminar", () => {
+  let createdId;
+  let stockOriginal;
+
   test("POST debe crear el producto y responder 201", async () => {
     const response = await request(app)
       .post("/api/products")
@@ -88,6 +91,8 @@ describe("Flujo completo: crear, consultar, modificar stock, eliminar", () => {
     expect(response.body.stock).toBe(0);
 
     productId = response.body.id;
+    createdId = response.body.id;
+    stockOriginal = response.body.stock;
   });
 
   test("GET /:id debe devolver el producto creado", async () => {
@@ -153,6 +158,26 @@ describe("Flujo completo: crear, consultar, modificar stock, eliminar", () => {
     const response = await request(app).get(`/api/products/${productId}`);
     expect(response.status).toBe(404);
   });
+
+  //revierte el stock al valor original y elimina el producto creado
+  //esto asegura que la base de datos quede limpia incluso si un test falla
+  afterAll(async () => {
+    if (createdId) {
+      const actual = await request(app).get(`/api/products/${createdId}`);
+      if (actual.status === 200) {
+        const diferencia = stockOriginal - actual.body.stock;
+        if (diferencia !== 0) {
+          await request(app)
+            .patch(`/api/products/${createdId}/stock`)
+            .set("Authorization", `Bearer ${token}`)
+            .send({ valor: diferencia });
+        }
+        await request(app)
+          .delete(`/api/products/${createdId}`)
+          .set("Authorization", `Bearer ${token}`);
+      }
+    }
+  });
 });
 
 describe("PATCH /api/products/:id/stock - Validaciones", () => {
@@ -195,18 +220,41 @@ describe("DELETE /api/products/:id - Validaciones", () => {
 });
 
 describe("POST /api/products/seed", () => {
+  let idsPrevios = [];
+
   test("debe responder 401 sin token", async () => {
     const response = await request(app).post("/api/products/seed");
     expect(response.status).toBe(401);
   });
 
   test("debe insertar productos y responder 201", async () => {
+    const todos = await request(app).get("/api/products");
+    idsPrevios = todos.body.map((p) => p.id);
+
     const response = await request(app)
       .post("/api/products/seed")
       .set("Authorization", `Bearer ${token}`);
 
     expect(response.status).toBe(201);
     expect(response.body.mensaje).toContain("productos insertados");
+  });
+
+  //elimina solo los productos insertados por el seed, conservando los que ya existian
+  afterAll(async () => {
+    const todos = await request(app).get("/api/products");
+    const idsAEliminar = todos.body
+      .filter((p) => !idsPrevios.includes(p.id))
+      .map((p) => p.id);
+
+    if (idsAEliminar.length > 0) {
+      await Promise.all(
+        idsAEliminar.map((id) =>
+          request(app)
+            .delete(`/api/products/${id}`)
+            .set("Authorization", `Bearer ${token}`)
+        )
+      );
+    }
   });
 });
 
