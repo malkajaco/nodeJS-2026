@@ -1,21 +1,17 @@
-import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
+
 import cors from "cors";
 
-const app = express();
-
-//Configuracion basica: Permitir todos los origenes
-app.use(cors());
-
-//Configuracion avanzada: Permitir solo ciertos origenes
+//Configuracion de CORS
+//origin: true permite peticiones desde cualquier origen
 const corsOptions = {
-  //Dominios permitidos
-  origin: ["http://localhost:3000", "http://example.com"],
-  //Metodos permitidos
-  methods: ["GET", "POST"],
-  //Encabezados permitidos
+  origin: true,
+  methods: ["GET", "POST", "PATCH", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  //Permitir cookies o credenciales
+  //Permitir envio de cookies/credenciales
   credentials: true,
 };
 
-app.use(cors(corsOptions));
+export default cors;
+export { corsOptions };

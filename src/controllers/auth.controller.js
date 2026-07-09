@@ -1,6 +1,7 @@
 import { generateToken } from "../utils/token.generator.js";
+import { MESSAGES } from "../utils/constants.js";
 
-const default_user = {
+const defaultUser = {
   id: 1,
   name: "User",
   email: "user@email.com",
@@ -12,21 +13,14 @@ export const login = (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({
-      message: "Faltan credenciales",
-    });
+    return res.status(400).json({ mensaje: MESSAGES.AUTH_MISSING_CREDENTIALS });
   }
 
-  if (email !== default_user.email || password !== default_user.password) {
-    return res.status(401).json({
-      message: "Credenciales inválidas",
-    });
+  const token = generateToken(defaultUser);
+
+  if (email === defaultUser.email && password === defaultUser.password) {
+    return res.status(200).json({ mensaje: MESSAGES.AUTH_LOGIN_SUCCESS, token });
+  } else {
+    return res.status(401).json({ mensaje: MESSAGES.AUTH_INVALID_CREDENTIALS });
   }
-
-  const token = generateToken(default_user);
-
-  res.json({
-    message: "Login exitoso",
-    token,
-  });
 };

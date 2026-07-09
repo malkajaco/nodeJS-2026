@@ -7,6 +7,7 @@ import {
   deleteDoc,
   doc,
   writeBatch,
+  updateDoc,
 } from "firebase/firestore";
 
 const productsCollection = collection(db, "products");
@@ -40,13 +41,23 @@ export const deleteProductFromDb = async (id) => {
   if (!snapshot.exists()) {
     return null;
   }
-  await deleteDoc(productDoc);
+  await deleteDoc(productRef);
   return id;
 };
 
 
-//Permite carga inicial de varios articulos juntos a la base de datos
-//hace un batch para enviar todo junto. No valida los datos, solo los manda
+export const updateProductStock = async (id, newStock) => {
+  const productRef = doc(productsCollection, id);
+  const snapshot = await getDoc(productRef);
+  if (!snapshot.exists()) {
+    return null;
+  }
+  await updateDoc(productRef, { stock: newStock });
+  return { id: snapshot.id, ...snapshot.data(), stock: newStock };
+};
+
+//Permite la carga inicial de varios productos a la base de datos
+//Usa un batch para enviar todo junto. No valida los datos.
 export const seedProductsFromJson = async (products) => {
   const batch = writeBatch(db);
   for (const product of products) {

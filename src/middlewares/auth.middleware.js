@@ -2,18 +2,19 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import jwt from "jsonwebtoken";
+import { MESSAGES } from "../utils/constants.js";
 
 export const auth = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    return res.status(401).json({ message: "Token no enviado" });
+    return res.status(401).json({ mensaje: MESSAGES.AUTH_TOKEN_NOT_SENT });
   }
 
   const token = authHeader.split(" ")[1];
 
   if (!token) {
-    return res.status(401).json({ message: "Formato de token invalido" });
+    return res.status(401).json({ mensaje: MESSAGES.AUTH_INVALID_TOKEN_FORMAT });
   }
 
   try {
@@ -23,6 +24,6 @@ export const auth = (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(403).json({ message: "Token invalido o expirado" });
+    return res.status(403).json({ mensaje: MESSAGES.AUTH_INVALID_OR_EXPIRED_TOKEN });
   }
 };

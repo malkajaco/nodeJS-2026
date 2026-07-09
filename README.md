@@ -1,6 +1,14 @@
-# Espacio Entrega Final
+# Espacio Entrega Final CURSO NODE-JS
+Autor: Malka Jacobo (Amaranta Kohn)
+LinkedIN: https://www.linkedin.com/in/malka-jacobo/
+Repo: https://github.com/malkajaco/nodeJS-2026
+Deploy: https://vercel.com/malka-jaco/node-js-2026-fdu2
+
 
 Sistema de Gestion de Productos con Express y Firebase
+
+> **Para pruebas rápidas:** Ejecuta `POST /api/products/seed` (requiere auth) para cargar los productos de `productos.json` en Firestore.  
+> **Usuario de prueba:** `user@email.com` / `strongPass123`
 
 ## Instalacion
 
@@ -21,55 +29,52 @@ Ver el archivo `.env-example` en la raiz del proyecto.
 
 ---
 
-## Create Product
+## API Map
 
-method: POST
+### Autenticación
 
-endpoint: /api/products
+```
+POST /api/auth/login
+```
 
-body:
+Autentica al usuario y devuelve un token JWT.
 
+**Body:**
 ```json
 {
-    "nombre": "Producto X",
-    "precio": 100
+    "email": "user@email.com",
+    "password": "strongPass123"
 }
 ```
 
-status: 201
-
-## Error Create Product
-
-method: POST
-endpoint: /api/products
-body:
-
+**Respuesta 201:**
 ```json
 {
-    "nombre": "Producto X",
-    "precio": 100
-}
-```
-response:
-
-body:
-
-```json
-{
-    "error": "El campo precio es requerido."
+    "mensaje": "Login exitoso",
+    "token": "eyJhbGciOiJIUzI1NiIs..."
 }
 ```
 
-status: 422
+**Respuesta 401:**
+```json
+{
+    "mensaje": "Credenciales inválidas"
+}
+```
 
-## Get All Products
+> Todas las rutas marcadas con 🔒 requieren el header `Authorization: Bearer <token>`
 
-method: GET
+---
 
-endpoint: /api/products
+### Productos
 
-status: 200
+```
+GET /api/products
+```
 
+Lista todos los productos.
+
+**Respuesta 200:**
 ```json
 [
     {
@@ -80,7 +85,7 @@ status: 200
         "proveedor": "ITEMS",
         "costo": 14990,
         "precio_unitario": 19487,
-        "descripcion_corta": "Set x13 Higiene Infantil",
+        "descripcion_corta": "Set x13 Higiene Infantil\nColor rosa y Celeste",
         "stock": 0
     }
 ]
@@ -88,138 +93,175 @@ status: 200
 
 ---
 
-## Get Product By ID
-
-method: GET
-
-endpoint: /api/products/:id
-
-status: 200
-
-```json
-{
-    "id": "abc123",
-    "codigo": "VIA-009",
-    "producto": "Set x13 Higiene Infantil",
-    "categoria": "ORGANIZADORES DE VIAJE",
-    "proveedor": "ITEMS",
-    "costo": 14990,
-    "precio_unitario": 19487,
-    "descripcion_corta": "Set x13 Higiene Infantil",
-    "stock": 0
-}
+```
+GET /api/products/:id
 ```
 
-status: 404
+Obtiene un producto por su ID.
 
+**Respuesta 200:** igual que arriba, un solo objeto.
+
+**Respuesta 404:**
 ```json
 {
-    "message": "Producto no encontrado"
+    "mensaje": "Producto no encontrado"
 }
 ```
 
 ---
 
-## Seed Products
+```
+POST /api/products  🔒
+```
 
-Importa masivamente los productos desde `src/productos.json` a Firestore.
+Crea un nuevo producto.
 
-method: POST
-
-endpoint: /api/products/seed
-
-status: 201
-
+**Body:**
 ```json
 {
-    "message": "15 productos insertados correctamente"
+    "codigo": "PRO-001",
+    "producto": "Nombre del producto",
+    "categoria": "Categoría",
+    "proveedor": "Proveedor",
+    "costo": 1000,
+    "precio_unitario": 1500,
+    "descripcion_corta": "Descripción breve"
+}
+```
+
+**Validaciones:**
+- `codigo`: obligatorio, formato `XXX-999` (3 letras, guion, 3 dígitos)
+- `producto`, `categoria`, `proveedor`, `costo`, `precio_unitario`: obligatorios
+
+**Respuesta 201:** devuelve el producto creado con su ID de Firestore.
+
+**Respuesta 400:**
+```json
+{
+    "mensaje": "Falta el campo obligatorio: producto"
 }
 ```
 
 ---
 
-## Delete Product
+```
+PATCH /api/products/:id/stock  🔒
+```
 
-method: DELETE
+Modifica el stock de un producto. El valor se suma (positivo) o resta (negativo).
 
-endpoint: /api/products/:id
-
-status: 200
-
+**Body:**
 ```json
 {
-    "message": "Producto eliminado"
+    "valor": 5
 }
 ```
 
-status: 404
-
+**Respuesta 200:**
 ```json
 {
-    "message": "Producto no encontrado"
+    "mensaje": "Stock actualizado",
+    "stock": 10
 }
 ```
+
+Si el stock resultante es menor a 1, incluye una advertencia:
+```json
+{
+    "mensaje": "Stock actualizado",
+    "stock": 0,
+    "advertencia": "El producto no tiene stock luego de este cambio"
+}
+```
+
+---
+
+```
+POST /api/products/seed  🔒
+```
+
+Carga masiva de productos desde `productos.json` a Firestore.
+
+**Respuesta 201:**
+```json
+{
+    "mensaje": "14 productos insertados correctamente"
+}
+```
+
+---
+
+```
+DELETE /api/products/:id  🔒
+```
+
+Elimina un producto por su ID.
+
+**Respuesta 200:**
+```json
+{
+    "mensaje": "Producto eliminado"
+}
+```
+
+**Respuesta 404:**
+```json
+{
+    "mensaje": "Producto no encontrado"
+}
+```
+
+---
 
 ## Testing
 
-Install dependencies
-```shell
-npm install -D jest supertest
-```
-
-Run tests
 ```shell
 npm test
 ```
 
-package.json
-```json
-{
-  "scripts": {
-    ...
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
-  },
-  "devDependencies": {
-    "jest": "^26.6.3",
-    "supertest": "^6.1.3"
-  }
-}
-```
+---
 
 ## Estructura del proyecto
 
 ```
-├── app.js
-├── index.js
-├── .env
-├── .env-example
+├── index.js                  ← Punto de entrada: levanta el servidor
+├── app.js                    ← Configura Express, CORS y rutas
+├── .env                      ← Variables de entorno
+├── .env-example              ← Plantilla de variables de entorno
+├── productos.json            ← Datos de prueba para el seed
 ├── src/
-│   ├── firebase.js
-│   ├── productos.json
+│   ├── cors.js               ← Configuración de CORS
+│   ├── config/
+│   │   └── firebase.js       ← Conexión a Firestore
 │   ├── controllers/
-│   │   ├── products.controller.js
-│   │   ├── categories.controller.js
-│   │   └── auth.controller.js
+│   │   ├── products.controller.js  ← Maneja req/res de productos
+│   │   └── auth.controller.js      ← Maneja req/res de autenticación
 │   ├── models/
-│   │   └── Product.js
+│   │   └── Product.js        ← Operaciones con Firestore (CRUD)
 │   ├── routes/
-│   │   ├── products.router.js
-│   │   ├── categories.router.js
-│   │   └── auth.router.js
+│   │   ├── products.router.js  ← Define rutas de productos
+│   │   └── auth.router.js      ← Define rutas de autenticación
 │   ├── services/
-│   │   └── products.service.js
+│   │   └── products.service.js ← Lógica de negocio de productos
+│   ├── middlewares/
+│   │   └── auth.middleware.js  ← Middleware de autenticación JWT
 │   └── utils/
-│       └── token.generator.js
+│       ├── constants.js       ← Mensajes y textos de la aplicación
+│       ├── validators.js      ← Validaciones de datos
+│       └── token.generator.js ← Generación de tokens JWT
 └── __tests__/
+    ├── app.test.js
+    ├── auth.test.js
+    └── products.test.js
 ```
 
 ---
 
-## Modelo de datos
+## Modelo de datos (Producto)
 
 | Campo            | Tipo   | Descripción                     |
 |------------------|--------|---------------------------------|
-| codigo           | string | Código interno del producto     |
+| codigo           | string | Código interno (XXX-999)        |
 | producto         | string | Nombre del producto             |
 | categoria        | string | Categoría                       |
 | proveedor        | string | Nombre del proveedor            |
@@ -227,3 +269,5 @@ package.json
 | precio_unitario  | number | Precio de venta                 |
 | descripcion_corta| string | Descripción breve               |
 | stock            | number | Stock disponible (opcional)     |
+
+// TODO: Agregar CRUD de categorías y validar que la categoría exista al crear un producto

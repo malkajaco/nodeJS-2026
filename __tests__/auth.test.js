@@ -1,8 +1,16 @@
 import request from "supertest";
-import app from "../index.js";
+import app from "../app.js";
 
 describe("POST /api/auth/login", () => {
-  test("espero que responda 401 si las credenciales son incorrectas", async () => {
+  test("debe responder 400 si no se envian credenciales", async () => {
+    const response = await request(app)
+      .post("/api/auth/login")
+      .send({ email: "user@email.com" });
+    expect(response.status).toBe(400);
+    expect(response.body.mensaje).toBe("Faltan credenciales");
+  });
+
+  test("debe responder 401 si las credenciales son incorrectas", async () => {
     const response = await request(app)
       .post("/api/auth/login")
       .send({
@@ -10,10 +18,9 @@ describe("POST /api/auth/login", () => {
         password: "password123"
       });
     expect(response.status).toBe(401);
+    expect(response.body.mensaje).toBe("Credenciales inválidas");
   });
-});
 
-describe("POST /api/auth/login", () => {
   test("debe responder 200 y devolver un token si las credenciales son correctas", async () => {
     const response = await request(app).post("/api/auth/login").send({
       email: "user@email.com",
@@ -21,6 +28,8 @@ describe("POST /api/auth/login", () => {
     });
 
     expect(response.status).toBe(200);
+    expect(response.body.mensaje).toBe("Login exitoso");
     expect(response.body.token).toBeDefined();
+    expect(typeof response.body.token).toBe("string");
   });
 });
